@@ -1,38 +1,16 @@
-import { ITEM } from '../types';
+import { ADD_CART, REMOVE_CART } from '../types';
 
-const initialState = {
-  item: [
-    {
-      id: 1,
-      name: 'camisa',
-      price: 23,
-    },
-    {
-      id: 1,
-      name: 'camisa',
-      price: 23,
-    },
-  ],
-  cart: [
-    {
-      id: 1,
-      name: 'camisa',
-      price: 23,
-    },
-    {
-      id: 2,
-      name: 'camisa',
-      price: 23,
-    },
-  ],
-};
-
-const reducer = (state = initialState, action) => {
+const reducer = (state, action) => {
   switch (action.type) {
-    case 'ADD_CART':
+    case ADD_CART:
       return {
         ...state,
-        cart: action.payload,
+        cart: [...state.cart, action.payload],
+      };
+    case REMOVE_CART:
+      return {
+        ...state,
+        cart: state.cart.filter(item => item.id !== action.payload),
       };
     default: return state;
   }
